@@ -24,12 +24,18 @@ export const generateDate = (
 
   //create prefix date
   for (let i = 0; i < firstDateofMonth.day(); i++) {
-    arrayOfDate.push(firstDateofMonth.day(i));
+    arrayOfDate.push({ currentMonth: false, date: firstDateofMonth.day(i) });
   }
 
   //generate current date
   for (let i = firstDateofMonth.date(); i <= lastDateofMonth.date(); i++) {
-    arrayOfDate.push(firstDateofMonth.date(i));
+    arrayOfDate.push({
+      currentMonth: true,
+      date: firstDateofMonth.date(i),
+      today:
+        firstDateofMonth.date(i).toDate().toDateString() ===
+        dayjs().toDate().toDateString(),
+    });
   }
 
   //create suffix date
@@ -39,7 +45,7 @@ export const generateDate = (
     i <= lastDateofMonth.date() + remaining;
     i++
   ) {
-    arrayOfDate.push(lastDateofMonth.date(i));
+    arrayOfDate.push({ currentMonth: false, date: lastDateofMonth.date(i) });
   }
   return arrayOfDate;
 };
