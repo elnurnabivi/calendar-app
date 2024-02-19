@@ -1,19 +1,23 @@
 import React from "react";
 import { HiPlusCircle } from "react-icons/hi";
-import { FaSearch } from "react-icons/fa";
-
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { generateDate, monthsOfYear } from "./CalendarBox";
 import Cn from "./Cn";
-import Celebrate from "../assets/celebrate.png";
-import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-// import { IoCalendarOutline } from "react-icons/io5";
-import { FcCalendar } from "react-icons/fc";
+import { FaArrowDown, FaArrowUp, FaSearch } from "react-icons/fa";
+import { useState, useEffect } from "react";
 
-import { useState } from "react";
+interface RightbarProps {
+  currentDate: Dayjs;
+  selectDate: any;
+  setSelectDate: any;
+}
 
-const Rightbar = () => {
-  const days = [
+const Rightbar = ({
+  currentDate,
+  selectDate,
+  setSelectDate,
+}: RightbarProps) => {
+  const daysOfWeek = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -22,38 +26,51 @@ const Rightbar = () => {
     "Friday",
     "Saturday",
   ];
-  const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
-  const [selectDate, setSelectDate] = useState(currentDate);
+  useEffect(() => {
+    const isDifferentMonth = selectDate.month() !== today.month();
+
+    if (isDifferentMonth) {
+      setToday(selectDate);
+    }
+  }, [selectDate]);
+
   return (
     <div className="flex flex-col w-full">
-      <div className="flex justify-between p-[16px]">
-        <span className="text-[30px] font-medium">
-          {monthsOfYear[today.month()]}, {today.year()}
-        </span>
+      <div className="flex justify-between p-[16px] border-l  border-solid border-[rgba(218, 220, 224, 0.60)] ">
+        <div className="flex items-center">
+          <span className="text-[30px] font-medium pr-[16px]">
+            {monthsOfYear[today.month()]}, {today.year()}
+          </span>
+          <FaArrowUp
+            className=" cursor-pointer w-[20px] h-[20px] hover:border-red-500 border-opacity-50 border border-solid rounded-md p-1 mr-[8px]"
+            onClick={() => setToday(today.month(today.month() - 1))}
+          />
+          <FaArrowDown
+            className=" cursor-pointer w-[20px] h-[20px] hover:border-red-500 border-opacity-50 border border-solid rounded-md p-1"
+            onClick={() => setToday(today.month(today.month() + 1))}
+          />
+        </div>
+
         <div className="flex items-center gap-[16px]">
           <div className="rounded-full bg-gray-200 flex items-center justify-center w-[32px] h-[32px]">
-            <FaSearch
-              style={{ color: "#333333", width: "17px", height: "17px" }}
-            />
+            <FaSearch className="color-[#333333] w-[17px] h-[17px]" />
           </div>
 
           <button className="bg-[#0C41FF] flex items-center h-[35px] p-[8px] gap-[4px] rounded-[3px] mr-[16px]">
             <span className="text-[#fff] text-[12px]">Add event</span>
-            <HiPlusCircle
-              style={{ color: "#fff", width: "16px", height: "16px" }}
-            />
+            <HiPlusCircle className="text-white w-[16px] h-[16px]" />
           </button>
         </div>
       </div>
       <div className="">
         <div className=" ">
           <div className="flex grid grid-cols-7 border border-solid border-[rgba(218, 220, 224, 0.60)] ">
-            {days.map((day, index) => {
+            {daysOfWeek.map((day, index) => {
               return (
                 <h1
                   key={index}
-                  className=" grid place-content-center text-gray-600 p-[4px]"
+                  className=" grid place-content-center text-gray-600 p-[4px] text-[13px] font-medium"
                 >
                   {day}
                 </h1>
@@ -62,14 +79,14 @@ const Rightbar = () => {
           </div>
           <div
             className="w-full grid grid-cols-7 "
-            style={{ height: "calc(100vh - 103px)" }}
+            style={{ height: "calc(100vh - 106px)" }}
           >
             {generateDate(today.month(), today.year()).map(
               ({ date, currentMonth, today }, index) => {
                 return (
                   <div
                     key={index}
-                    className="grid place-content-center p-[4px] border border-solid border-[rgba(218, 220, 224, 0.60)]  "
+                    className="grid justify-start items-start p-[4px] text-[12px] border border-solid border-[rgba(218, 220, 224, 0.60)]  "
                   >
                     <h1
                       className={Cn(

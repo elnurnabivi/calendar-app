@@ -1,27 +1,35 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { generateDate, monthsOfYear } from "./CalendarBox";
 import Cn from "./Cn";
 import Celebrate from "../assets/celebrate.png";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-// import { IoCalendarOutline } from "react-icons/io5";
 import { FcCalendar } from "react-icons/fc";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const Sidebar = () => {
+interface SidebarProps {
+  currentDate: Dayjs;
+  selectDate: any;
+  setSelectDate: any;
+}
+
+const Sidebar = ({ currentDate, selectDate, setSelectDate }: SidebarProps) => {
   console.log(generateDate());
-  const days = ["s", "m", "t", "w", "t", "f", "s"];
-  const currentDate = dayjs();
+  const daysOfWeek = ["s", "m", "t", "w", "t", "f", "s"];
   const [today, setToday] = useState(currentDate);
-  const [selectDate, setSelectDate] = useState(currentDate);
+
+  useEffect(() => {
+    const isDifferentMonth = selectDate.month() !== today.month();
+
+    if (isDifferentMonth) {
+      setToday(selectDate);
+    }
+  }, [selectDate]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col ">
       <div className=" w-[240px]">
         <div className="flex justify-between items-center">
-          {/* <div className="ml-[12px] my-[10px] text-[18px] font-medium">
-            {dayjs().format("MMMM")}
-          </div> */}
           <div className="ml-[12px] my-[10px] text-[16px] font-medium">
             {monthsOfYear[today.month()]}, {today.year()}
           </div>
@@ -45,7 +53,7 @@ const Sidebar = () => {
 
         <div className=" ">
           <div className="flex grid grid-cols-7 ">
-            {days.map((day, index) => {
+            {daysOfWeek.map((day, index) => {
               return (
                 <h1
                   key={index}
