@@ -1,17 +1,4 @@
 import dayjs from "dayjs";
-import React from "react";
-
-// const CalendarBox = () => {
-//   const generateDate = (month = dayjs().month(), year = dayjs().year()) => {
-//     const firstDateofMonth = dayjs().year(year).month(month).startOf("month");
-//     const lastDateofMonth = dayjs().year(year).month(month).endOf("month");
-//     return [firstDateofMonth, lastDateofMonth];
-//   };
-//   const dates = generateDate();
-//   return <div>{dates[0].format("YYYY-MM-DD")}</div>;
-// };
-
-// export default CalendarBox;
 
 export const generateDate = (
   month = dayjs().month(),
@@ -64,3 +51,15 @@ export const monthsOfYear = [
   "November",
   "December",
 ];
+
+// const CalendarBox = () => {
+//   const generateDate = (month = dayjs().month(), year = dayjs().year()) => {
+//     const firstDateofMonth = dayjs().year(year).month(month).startOf("month");
+//     const lastDateofMonth = dayjs().year(year).month(month).endOf("month");
+//     return [firstDateofMonth, lastDateofMonth];
+//   };
+//   const dates = generateDate();
+//   return <div>{dates[0].format("YYYY-MM-DD")}</div>;
+// };
+
+// export default CalendarBox;
