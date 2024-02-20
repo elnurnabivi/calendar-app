@@ -5,6 +5,7 @@ import { generateDate, monthsOfYear } from "./CalendarBox";
 import Cn from "./Cn";
 import { FaArrowDown, FaArrowUp, FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import AddEvent from "./AddEvent";
 
 interface RightbarProps {
   currentDate: Dayjs;
@@ -35,6 +36,16 @@ const Rightbar = ({
     }
   }, [selectDate]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAddEvent = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between p-[16px] border-l  border-solid border-[rgba(218, 220, 224, 0.60)] ">
@@ -54,13 +65,17 @@ const Rightbar = ({
 
         <div className="flex items-center gap-[16px]">
           <div className="rounded-full bg-gray-200 flex items-center justify-center w-[32px] h-[32px]">
-            <FaSearch className="color-[#333333] w-[17px] h-[17px]" />
+            <FaSearch className="color-[#333333] w-[14px] h-[14px]" />
           </div>
 
-          <button className="bg-[#0C41FF] flex items-center h-[35px] p-[8px] gap-[4px] rounded-[3px] mr-[16px]">
+          <button
+            className="bg-[#0C41FF] flex items-center h-[35px] p-[8px] gap-[4px] rounded-[3px] mr-[16px]"
+            onClick={handleAddEvent}
+          >
             <span className="text-[#fff] text-[12px]">Add event</span>
             <HiPlusCircle className="text-white w-[16px] h-[16px]" />
           </button>
+          {isModalOpen && <AddEvent onClose={handleCloseModal} />}
         </div>
       </div>
       <div className="">
