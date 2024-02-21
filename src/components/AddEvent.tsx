@@ -11,7 +11,7 @@ type FormFields = {
   selectedColorSame: string;
 };
 
-const AddEvent = ({ onClose }: any) => {
+const AddEvent = ({ onClose, addEvent }: any) => {
   const {
     register,
     handleSubmit,
@@ -32,13 +32,23 @@ const AddEvent = ({ onClose }: any) => {
     "#FF0000",
   ];
 
-  const handleColorChange = (event: any) => {
+  const handleColorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedColor(event.target.value);
   };
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
+      addEvent({
+        selectedEmoji: data.selectedEmoji,
+        eventName: data.eventName,
+        eventDescription: data.eventDescription,
+        selectedDate: data.selectedDate,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        selectedColorSame: data.selectedColorSame,
+      });
+      onClose();
       //   throw new Error();
       console.log(data);
     } catch (error) {
@@ -51,19 +61,21 @@ const AddEvent = ({ onClose }: any) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="modal fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-75"
+      className="modal fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-75 text-[12px]"
     >
-      <div className="modal-content bg-white w-full max-w-[400px] h-full max-h-[400px] rounded-md p-4">
+      <div className="modal-content bg-white w-full max-w-[500px]  max-h-[400px] rounded-md p-8 relative">
         <input
           {...register("eventName", {
-            required: "Title is reqired",
+            required: "Title is required",
           })}
           type="text"
           placeholder="Add title"
-          className="mb-4 w-full border border-gray-300 rounded-md p-2"
+          className="mb-4 w-full border border-gray-300 rounded-md p-2 font-medium text-[16px]"
         />
         {errors.eventName && (
-          <div className="text-red-500">{errors.eventName.message}</div>
+          <div className="text-red-500 mb-[8px]">
+            {errors.eventName.message}
+          </div>
         )}
         <textarea
           {...register("eventDescription")}
@@ -76,21 +88,26 @@ const AddEvent = ({ onClose }: any) => {
               required: "Choose a day",
             })}
             type="date"
-            className="mr-4 w-full border border-gray-300 rounded-md p-2"
+            className="mr-16 w-2/5 border border-gray-300 rounded-md p-2"
           />
+
           <input
             {...register("startTime")}
             type="time"
-            className="w-full border border-gray-300 rounded-md p-2"
+            className="flex-1 border border-gray-300 rounded-md p-2"
           />
-          <span className="mx-2">-</span>
+          <span className="mx-2 my-4"></span>
           <input
             {...register("endTime")}
             type="time"
-            className="w-full border border-gray-300 rounded-md p-2"
+            className="flex-1 border border-gray-300 rounded-md p-2"
           />
         </div>
-        <div></div>
+        {errors.selectedDate && (
+          <div className="text-red-500 mb-[8px]">
+            {errors.selectedDate.message}
+          </div>
+        )}
         <div className="flex items-center mb-4">
           <select
             {...register("selectedEmoji")}

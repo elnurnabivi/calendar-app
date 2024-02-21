@@ -7,6 +7,10 @@ import Rightbar from "./components/Rightbar";
 function App() {
   const currentDate = dayjs();
   const [selectDate, setSelectDate] = useState(currentDate);
+  const [events, setEvents] = useState<Event[]>([]);
+  const addEvent = (event: Event) => {
+    setEvents([...events, event]);
+  };
 
   return (
     <>
@@ -15,11 +19,15 @@ function App() {
           currentDate={currentDate}
           selectDate={selectDate}
           setSelectDate={setSelectDate}
+          events={events}
+          addEvent={addEvent}
         />
         <Rightbar
           currentDate={currentDate}
           selectDate={selectDate}
           setSelectDate={setSelectDate}
+          events={events}
+          addEvent={addEvent}
         />
       </div>
     </>

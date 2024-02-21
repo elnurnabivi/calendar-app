@@ -11,12 +11,16 @@ interface RightbarProps {
   currentDate: Dayjs;
   selectDate: any;
   setSelectDate: any;
+  events: Event[];
+  addEvent: (event: Event) => void;
 }
 
 const Rightbar = ({
   currentDate,
   selectDate,
   setSelectDate,
+  events,
+  addEvent,
 }: RightbarProps) => {
   const daysOfWeek = [
     "Sunday",
@@ -75,7 +79,9 @@ const Rightbar = ({
             <span className="text-[#fff] text-[12px]">Add event</span>
             <HiPlusCircle className="text-white w-[16px] h-[16px]" />
           </button>
-          {isModalOpen && <AddEvent onClose={handleCloseModal} />}
+          {isModalOpen && (
+            <AddEvent addEvent={addEvent} onClose={handleCloseModal} />
+          )}
         </div>
       </div>
       <div className="">

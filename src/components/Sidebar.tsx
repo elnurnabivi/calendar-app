@@ -11,9 +11,27 @@ interface SidebarProps {
   currentDate: Dayjs;
   selectDate: any;
   setSelectDate: any;
+  events: Event[];
+  addEvent: (event: Event) => void;
 }
 
-const Sidebar = ({ currentDate, selectDate, setSelectDate }: SidebarProps) => {
+interface Event {
+  eventName: string;
+  selectedEmoji: string;
+  eventDescription: string;
+  selectedDate: string;
+  startTime: string;
+  endTime: string;
+  selectedColorSame: string;
+}
+
+const Sidebar = ({
+  currentDate,
+  selectDate,
+  setSelectDate,
+  events,
+  addEvent,
+}: SidebarProps) => {
   console.log(generateDate());
   const daysOfWeek = ["s", "m", "t", "w", "t", "f", "s"];
   const [today, setToday] = useState(currentDate);
@@ -101,15 +119,17 @@ const Sidebar = ({ currentDate, selectDate, setSelectDate }: SidebarProps) => {
           Upcoming events
         </div>
 
-        <div className="flex flex-col justify-center items-center">
-          <img
-            src={Celebrate}
-            className="h-[45px] w-[45px] mt-[33px] mb-[10px]"
-          />
-          <div className="text-[12px] text-[#333333] font-medium mb-[28px]">
-            No upcoming events
+        {events.length === 0 && (
+          <div className="flex flex-col justify-center items-center">
+            <img
+              src={Celebrate}
+              className="h-[45px] w-[45px] mt-[33px] mb-[10px]"
+            />
+            <div className="text-[12px] text-[#333333] font-medium mb-[28px]">
+              No upcoming events
+            </div>
           </div>
-        </div>
+        )}
 
         {selectDate.format("YYYY-MM-DD") ===
         currentDate.format("YYYY-MM-DD") ? (
@@ -152,7 +172,22 @@ const Sidebar = ({ currentDate, selectDate, setSelectDate }: SidebarProps) => {
               All events
             </div>
           </div>
-          <div>Test</div>
+          <div>
+            {events.map((event, index) => (
+              <div key={index}>
+                <div className="flex justify-between m-[4px] mr-[8px]">
+                  <div>
+                    <span className="pr-[2px]">{event.selectedEmoji}</span>
+                    <span className="">{event.eventName}</span>
+                  </div>
+                  <div>
+                    <span>{event.selectedDate}</span>
+                  </div>
+                </div>
+                <div></div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
