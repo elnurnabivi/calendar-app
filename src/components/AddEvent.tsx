@@ -122,7 +122,7 @@ const AddEvent = ({ onClose, addEvent }: any) => {
           </select>
         </div>
         <div className="flex items-center mb-4">
-          <select
+          {/* <select
             {...register("selectedColorSame")}
             onChange={handleColorChange}
             className="w-48 border border-gray-300 rounded-md p-2"
@@ -138,7 +138,20 @@ const AddEvent = ({ onClose, addEvent }: any) => {
                 style={{ backgroundColor: color }}
               ></option>
             ))}
-          </select>
+          </select> */}
+
+          {/* 2OPTION */}
+
+          {/* {colors.map((color, index) => (
+            <div
+              key={index}
+              className={`w-8 h-8 rounded-full cursor-pointer mr-2 ${
+                selectedColor === color ? "border border-blue-500" : ""
+              }`}
+              style={{ backgroundColor: color }}
+              onClick={() => handleColorChange(color)}
+            ></div>
+          ))} */}
         </div>
 
         <div className="flex justify-end mt-4">
