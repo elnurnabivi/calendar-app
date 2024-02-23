@@ -9,7 +9,7 @@ type FormFields = {
   startTime: string;
   endTime: string;
   selectedEmoji: string;
-  selectedColorSame: string;
+  selectedColor: string;
 };
 
 const AddEvent = ({ onClose, addEvent }: any) => {
@@ -32,13 +32,17 @@ const AddEvent = ({ onClose, addEvent }: any) => {
     "#FF0000",
   ];
 
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [selectedColorSame, setSelectedColorSame] = useState(colors[0]);
+  const [selectedEmojiSame, setSelectedEmojiSame] = useState(emojis[0]);
 
   //   const handleColorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
   //     setSelectedColor(event.target.value);
   //   };
   const handleColorChange = (color: string) => {
-    setSelectedColor(color);
+    setSelectedColorSame(color);
+  };
+  const handleEmojiChange = (emoji: string) => {
+    setSelectedEmojiSame(emoji);
   };
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
@@ -51,7 +55,7 @@ const AddEvent = ({ onClose, addEvent }: any) => {
         selectedDate: data.selectedDate,
         startTime: data.startTime,
         endTime: data.endTime,
-        selectedColorSame: data.selectedColorSame,
+        selectedColor: data.selectedColor,
       });
       onClose();
       //   throw new Error();
@@ -113,37 +117,65 @@ const AddEvent = ({ onClose, addEvent }: any) => {
             {errors.selectedDate.message}
           </div>
         )}
-        <div className="flex items-center mb-4">
-          <select
-            {...register("selectedEmoji")}
-            className="w-48 border border-gray-300 rounded-md p-2"
+
+        <div className="flex flex-col items-left mb-4">
+          <label
+            className=""
+            //   htmlFor="emoji"
           >
-            <option value="">Select emoji</option>
-            {emojis.map((emoji) => (
-              <option key={emoji} value={emoji} className="text-[16px]">
-                {emoji}
-              </option>
+            Select emoji:
+          </label>
+          <div className="flex">
+            {emojis.map((emoji, index) => (
+              <label key={index} className="flex items-center">
+                <input
+                  key={selectedEmojiSame}
+                  value={selectedEmojiSame}
+                  type="radio"
+                  id={emoji}
+                  checked={selectedEmojiSame === emoji}
+                  style={{ display: "none" }}
+                  {...register("selectedEmoji")}
+                  //   onChange={() => handleEmojiChange(emoji)}
+                />
+                <div
+                  className={` text-[18px] size-[28px]  rounded-full cursor-pointer box-content flex items-center justify-center ${
+                    selectedEmojiSame === emoji
+                      ? "text-[20px] border-[2px] border-[#0C41FF] opacity-100 "
+                      : "opacity-60"
+                  }`}
+                  //   style={{ boxSizing: "content-box" }} // Adjust font size for emoji
+                  onClick={() => handleEmojiChange(emoji)}
+                >
+                  {emoji}
+                </div>
+              </label>
             ))}
-          </select>
+          </div>
         </div>
-        <div className="flex items-center mb-4">
-          <div className="flex gap-[4px]">
+
+        <div className="flex flex-col items-left mb-4">
+          <label className="" htmlFor="color">
+            Select color:
+          </label>
+          <div className="flex gap-[8px]">
             {colors.map((color, index) => (
               <label key={index} className="flex items-center">
                 <input
                   type="radio"
                   value={color}
-                  checked={selectedColor === color}
+                  id="color"
+                  checked={selectedColorSame === color}
                   className="sr-only"
-                  {...register("selectedColorSame")}
+                  {...register("selectedColor")}
                 />
                 <div
-                  className={`w-[24px] h-[24px] rounded-full cursor-pointer ${
-                    selectedColor === color
-                      ? "border-[4px] border-[#0C41FF]"
+                  className={`size-[20px] rounded-full cursor-pointer box-content ${
+                    selectedColorSame === color
+                      ? "size-[23px] border-[2px] border-[#0C41FF]"
                       : ""
                   }`}
-                  style={{ backgroundColor: color, boxSizing: "content-box" }}
+                  style={{ backgroundColor: color }}
                   onClick={() => handleColorChange(color)}
                 ></div>
               </label>

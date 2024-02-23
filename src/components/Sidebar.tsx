@@ -22,7 +22,7 @@ interface Event {
   selectedDate: string;
   startTime: string;
   endTime: string;
-  selectedColorSame: string;
+  selectedColor: string;
 }
 
 const Sidebar = ({
