@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { HiPlusCircle } from "react-icons/hi";
 
 type FormFields = {
   eventName: string;
@@ -19,7 +20,6 @@ const AddEvent = ({ onClose, addEvent }: any) => {
     formState: { errors, isSubmitting },
   } = useForm<FormFields>();
   const emojis = ["🔔", "💡", "🧑🏻‍💻", "🏝️", "✈️", "🏃🏻", "💰", "🩷"];
-  const [selectedColor, setSelectedColor] = useState("");
 
   const colors = [
     "#FFFFFF",
@@ -32,8 +32,13 @@ const AddEvent = ({ onClose, addEvent }: any) => {
     "#FF0000",
   ];
 
-  const handleColorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedColor(event.target.value);
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
+
+  //   const handleColorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //     setSelectedColor(event.target.value);
+  //   };
+  const handleColorChange = (color: string) => {
+    setSelectedColor(color);
   };
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
@@ -122,36 +127,28 @@ const AddEvent = ({ onClose, addEvent }: any) => {
           </select>
         </div>
         <div className="flex items-center mb-4">
-          {/* <select
-            {...register("selectedColorSame")}
-            onChange={handleColorChange}
-            className="w-48 border border-gray-300 rounded-md p-2"
-            style={{ backgroundColor: selectedColor }}
-          >
-            <option value="" className="bg-white">
-              Select color
-            </option>
-            {colors.map((color) => (
-              <option
-                key={color}
-                value={color}
-                style={{ backgroundColor: color }}
-              ></option>
+          <div className="flex gap-[4px]">
+            {colors.map((color, index) => (
+              <label key={index} className="flex items-center">
+                <input
+                  type="radio"
+                  value={color}
+                  checked={selectedColor === color}
+                  className="sr-only"
+                  {...register("selectedColorSame")}
+                />
+                <div
+                  className={`w-[24px] h-[24px] rounded-full cursor-pointer ${
+                    selectedColor === color
+                      ? "border-[4px] border-[#0C41FF]"
+                      : ""
+                  }`}
+                  style={{ backgroundColor: color, boxSizing: "content-box" }}
+                  onClick={() => handleColorChange(color)}
+                ></div>
+              </label>
             ))}
-          </select> */}
-
-          {/* 2OPTION */}
-
-          {/* {colors.map((color, index) => (
-            <div
-              key={index}
-              className={`w-8 h-8 rounded-full cursor-pointer mr-2 ${
-                selectedColor === color ? "border border-blue-500" : ""
-              }`}
-              style={{ backgroundColor: color }}
-              onClick={() => handleColorChange(color)}
-            ></div>
-          ))} */}
+          </div>
         </div>
 
         <div className="flex justify-end mt-4">
@@ -162,9 +159,16 @@ const AddEvent = ({ onClose, addEvent }: any) => {
             disabled={isSubmitting}
             type="submit"
             // onClick={handleSubmit}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            className="bg-[#0C41FF] text-white flex items-center h-[35px] p-[8px] gap-[4px] rounded-[3px]"
           >
-            {isSubmitting ? "Adding..." : "Create Event"}
+            {isSubmitting ? (
+              "Adding..."
+            ) : (
+              <>
+                <span>Create event</span>
+                <HiPlusCircle className="text-white w-[16px] h-[16px]" />
+              </>
+            )}
           </button>
         </div>
 
