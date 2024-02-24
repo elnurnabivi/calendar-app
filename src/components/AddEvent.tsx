@@ -119,12 +119,7 @@ const AddEvent = ({ onClose, addEvent }: any) => {
         )}
 
         <div className="flex flex-col items-left mb-4">
-          <label
-            className=""
-            //   htmlFor="emoji"
-          >
-            Select emoji:
-          </label>
+          <label>Select emoji:</label>
           <div className="flex">
             {emojis.map((emoji, index) => (
               <label key={index} className="flex items-center">
