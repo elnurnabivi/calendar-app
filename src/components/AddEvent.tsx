@@ -139,7 +139,7 @@ const AddEvent = ({ onClose, addEvent }: any) => {
                       ? "text-[20px] border-[2px] border-[#0C41FF] opacity-100 "
                       : "opacity-60"
                   }`}
-                  //   style={{ boxSizing: "content-box" }} // Adjust font size for emoji
+                  //   style={{ boxSizing: "content-addEvent" }} // Adjust font size for emoji
                   onClick={() => handleEmojiChange(emoji)}
                 >
                   {emoji}

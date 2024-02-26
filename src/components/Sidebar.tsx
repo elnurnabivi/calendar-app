@@ -35,6 +35,7 @@ const Sidebar = ({
   console.log(generateDate());
   const daysOfWeek = ["s", "m", "t", "w", "t", "f", "s"];
   const [today, setToday] = useState(currentDate);
+  const tomorrow = dayjs().add(1, "day").toDate().toDateString();
 
   useEffect(() => {
     const isDifferentMonth = selectDate.month() !== today.month();
@@ -152,8 +153,34 @@ const Sidebar = ({
             <FcCalendar className="w-8 h-8 cursor-pointer" />
             <div className="text-[16px] text-[#333333] font-medium">Today</div>
           </div>
-          <div>Schedule for {today.toDate().toDateString()}</div>
-          <div>Test</div>
+          {/* <div>Schedule for {today.toDate().toDateString()}</div> */}
+          <div>
+            {events.filter((event) => {
+              const eventDate = dayjs(event.selectedDate, "YYYY-MM-DD");
+              return eventDate.isSame(today, "day");
+            }).length === 0 ? (
+              <div>There are no events for today</div>
+            ) : (
+              events
+                .filter((event) => {
+                  const eventDate = dayjs(event.selectedDate, "YYYY-MM-DD");
+                  return eventDate.isSame(today, "day");
+                })
+                .map((event, index) => (
+                  <div key={index}>
+                    <div className="flex justify-between m-[4px] mr-[8px]">
+                      <div>
+                        <span className="pr-[2px]">{event.selectedEmoji}</span>
+                        <span>{event.eventName}</span>
+                      </div>
+                      <div>
+                        <span>{event.startTime}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+            )}
+          </div>
         </div>
         <div className=" mb-[28px]">
           <div className="flex items-center gap-[8px]">
@@ -162,8 +189,35 @@ const Sidebar = ({
               Tomorrow
             </div>
           </div>
-          <div>Schedule for {today.toDate().toDateString()}</div>
-          <div>Test</div>
+          {/* <div>Schedule for {tomorrow}</div> */}
+          <div>
+            {events.filter((event) => {
+              const eventDate = dayjs(event.selectedDate, "YYYY-MM-DD");
+              return eventDate.isSame(tomorrow, "day");
+            }).length === 0 ? (
+              <div>There are no events for tomorrow</div>
+            ) : (
+              events
+                .filter((event) => {
+                  const eventDate = dayjs(event.selectedDate, "YYYY-MM-DD");
+                  return eventDate.isSame(tomorrow, "day");
+                })
+                .map((event, index) => (
+                  <div key={index}>
+                    <div className="flex justify-between m-[4px] mr-[8px]">
+                      <div>
+                        <span className="pr-[2px] ">{event.selectedEmoji}</span>
+                        <span className="">{event.eventName}</span>
+                      </div>
+                      <div>
+                        <span>{event.startTime}</span>
+                      </div>
+                    </div>
+                    <div></div>
+                  </div>
+                ))
+            )}
+          </div>
         </div>
         <div className=" mb-[28px]">
           <div className="flex items-center gap-[8px]">
@@ -177,7 +231,7 @@ const Sidebar = ({
               <div key={index}>
                 <div className="flex justify-between m-[4px] mr-[8px]">
                   <div>
-                    <span className="pr-[2px]">{event.selectedEmoji}</span>
+                    <span className="pr-[2px] ">{event.selectedEmoji}</span>
                     <span className="">{event.eventName}</span>
                   </div>
                   <div>
