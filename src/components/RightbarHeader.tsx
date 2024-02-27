@@ -10,6 +10,16 @@ interface RightbarHeaderProps {
   setToday: any;
 }
 
+interface Event {
+  eventName: string;
+  selectedEmoji: string;
+  eventDescription: string;
+  selectedDate: string;
+  startTime: string;
+  endTime: string;
+  selectedColor: string;
+}
+
 const RightbarHeader = ({ today, setToday, addEvent }: RightbarHeaderProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

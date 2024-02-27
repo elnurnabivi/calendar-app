@@ -13,7 +13,7 @@ interface SidebarProps {
   selectDate: any;
   setSelectDate: any;
   events: Event[];
-  addEvent: (event: Event) => void;
+  // addEvent: (event: Event) => void;
 }
 
 interface Event {
@@ -31,8 +31,8 @@ const Sidebar = ({
   selectDate,
   setSelectDate,
   events,
-  addEvent,
-}: SidebarProps) => {
+}: // addEvent,
+SidebarProps) => {
   console.log(generateDate());
   const [today, setToday] = useState(currentDate);
 

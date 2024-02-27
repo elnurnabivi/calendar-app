@@ -20,7 +20,7 @@ function App() {
           selectDate={selectDate}
           setSelectDate={setSelectDate}
           events={events}
-          addEvent={addEvent}
+          // addEvent={addEvent}
         />
         <Rightbar
           currentDate={currentDate}

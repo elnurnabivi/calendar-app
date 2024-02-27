@@ -11,6 +11,16 @@ interface RightbarProps {
   addEvent: (event: Event) => void;
 }
 
+interface Event {
+  eventName: string;
+  selectedEmoji: string;
+  eventDescription: string;
+  selectedDate: string;
+  startTime: string;
+  endTime: string;
+  selectedColor: string;
+}
+
 const Rightbar = ({
   currentDate,
   selectDate,
@@ -34,6 +44,7 @@ const Rightbar = ({
         today={today}
         selectDate={selectDate}
         setSelectDate={setSelectDate}
+        events={events}
       />
     </div>
   );
