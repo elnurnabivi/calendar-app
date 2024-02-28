@@ -12,6 +12,10 @@ function App() {
     setEvents([...events, event]);
   };
 
+  const deleteEvent = (eventToDelete: Event) => {
+    setEvents(events.filter((event) => event !== eventToDelete));
+  };
+
   return (
     <>
       <div className="flex">
@@ -20,6 +24,7 @@ function App() {
           selectDate={selectDate}
           setSelectDate={setSelectDate}
           events={events}
+          deleteEvent={deleteEvent}
           // addEvent={addEvent}
         />
         <Rightbar
@@ -28,6 +33,7 @@ function App() {
           setSelectDate={setSelectDate}
           events={events}
           addEvent={addEvent}
+          deleteEvent={deleteEvent}
         />
       </div>
     </>

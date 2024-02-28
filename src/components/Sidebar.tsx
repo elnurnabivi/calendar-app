@@ -13,6 +13,8 @@ interface SidebarProps {
   selectDate: any;
   setSelectDate: any;
   events: Event[];
+  deleteEvent: (eventName: Event) => void;
+
   // addEvent: (event: Event) => void;
 }
 
@@ -21,7 +23,7 @@ interface Event {
   selectedEmoji: string;
   eventDescription: string;
   selectedDate: string;
-  startTime: string;
+  // startTime: string;
   endTime: string;
   selectedColor: string;
 }
@@ -31,6 +33,7 @@ const Sidebar = ({
   selectDate,
   setSelectDate,
   events,
+  deleteEvent,
 }: // addEvent,
 SidebarProps) => {
   console.log(generateDate());
@@ -64,10 +67,15 @@ SidebarProps) => {
           events={events}
           selectDate={selectDate}
           currentDate={currentDate}
+          deleteEvent={deleteEvent}
         />
-        <EventsForToday events={events} today={today} />
-        <EventsForTomorrow events={events} />
-        <AllEvents events={events} />
+        <EventsForToday
+          events={events}
+          today={today}
+          deleteEvent={deleteEvent}
+        />
+        <EventsForTomorrow events={events} deleteEvent={deleteEvent} />
+        <AllEvents events={events} deleteEvent={deleteEvent} />
       </div>
     </div>
   );

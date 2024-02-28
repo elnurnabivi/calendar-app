@@ -15,7 +15,7 @@ interface Event {
   selectedEmoji: string;
   eventDescription: string;
   selectedDate: string;
-  startTime: string;
+  // startTime: string;
   endTime: string;
   selectedColor: string;
 }
@@ -32,10 +32,7 @@ const RightbarHeader = ({ today, setToday, addEvent }: RightbarHeaderProps) => {
   };
   return (
     <div className="flex justify-between p-[16px] border-l  border-solid border-[rgba(218, 220, 224, 0.60)] ">
-      <div className="flex items-center">
-        <span className="text-[30px] font-medium pr-[16px]">
-          {monthsOfYear[today.month()]}, {today.year()}
-        </span>
+      <div className="flex items-center pl-[16px]">
         <FaArrowUp
           className=" cursor-pointer w-[20px] h-[20px] hover:border-red-500 border-opacity-50 border border-solid rounded-md p-1 mr-[8px]"
           onClick={() => setToday(today.month(today.month() - 1))}
@@ -44,6 +41,9 @@ const RightbarHeader = ({ today, setToday, addEvent }: RightbarHeaderProps) => {
           className=" cursor-pointer w-[20px] h-[20px] hover:border-red-500 border-opacity-50 border border-solid rounded-md p-1"
           onClick={() => setToday(today.month(today.month() + 1))}
         />
+        <span className="text-[30px] font-medium pl-[16px]">
+          {monthsOfYear[today.month()]}, {today.year()}
+        </span>
       </div>
 
       <div className="flex items-center gap-[16px]">

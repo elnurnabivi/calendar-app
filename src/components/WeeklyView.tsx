@@ -1,29 +1,34 @@
 import { generateDate } from "./CalendarBox";
 import Cn from "./Cn";
+import React, { useState } from "react";
 import dayjs from "dayjs";
+import EventDetailsModal from "./EventDetailsModal";
+import AdditionalEventsModal from "./AdditionalEventsModal";
 
 interface WeeklyViewProps {
   today: any;
   selectDate: any;
   setSelectDate: any;
   events: Event[];
+  deleteEvent: (eventName: Event) => void;
 }
+
 interface Event {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;
   selectedDate: string;
-  startTime: string;
   endTime: string;
   selectedColor: string;
 }
 
-const WeeklyView = ({
+const WeeklyView: React.FC<WeeklyViewProps> = ({
   events,
   today,
   selectDate,
   setSelectDate,
-}: WeeklyViewProps) => {
+  deleteEvent,
+}) => {
   const daysOfWeek = [
     "Sunday",
     "Monday",
@@ -33,22 +38,52 @@ const WeeklyView = ({
     "Friday",
     "Saturday",
   ];
+
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [showAdditionalEventsModal, setShowAdditionalEventsModal] =
+    useState(false);
+  const [additionalEvents, setAdditionalEvents] = useState<Event[]>([]);
+
+  const openDetailsModal = (event: Event) => {
+    setSelectedEvent(event);
+    setShowDetailsModal(true);
+  };
+
+  const openAdditionalEventsModal = (eventsForDate: Event[]) => {
+    setAdditionalEvents(eventsForDate);
+    setShowAdditionalEventsModal(true);
+  };
+
+  const closeDetailsModal = () => {
+    setShowDetailsModal(false);
+  };
+
+  const closeAdditionalEventsModal = () => {
+    setShowAdditionalEventsModal(false);
+  };
+
+  const handleCompleteEvent = () => {
+    if (selectedEvent) {
+      deleteEvent(selectedEvent);
+      closeDetailsModal();
+    }
+  };
+
   return (
-    <div className="">
-      <div className="flex grid grid-cols-7 border border-solid border-[rgba(218, 220, 224, 0.60)] ">
-        {daysOfWeek.map((day, index) => {
-          return (
-            <h1
-              key={index}
-              className=" grid place-content-center text-gray-600 p-[4px] text-[13px] font-medium"
-            >
-              {day}
-            </h1>
-          );
-        })}
+    <div>
+      <div className="flex grid grid-cols-7 border border-solid border-[rgba(218, 220, 224, 0.60)]">
+        {daysOfWeek.map((day, index) => (
+          <h1
+            key={index}
+            className="grid place-content-center text-gray-600 p-[4px] text-[13px] font-medium"
+          >
+            {day}
+          </h1>
+        ))}
       </div>
       <div
-        className="w-full grid grid-cols-7 "
+        className="w-full grid grid-cols-7"
         style={{ height: "calc(100vh - 106px)" }}
       >
         {generateDate(today.month(), today.year()).map(
@@ -57,10 +92,12 @@ const WeeklyView = ({
               dayjs(event.selectedDate).isSame(date, "day")
             );
 
+            const initialEventsToShow = eventsForDate.slice(0, 2); // Show first two events initially
+
             return (
               <div
                 key={index}
-                className=" grid  p-[2px] text-[12px] border border-solid border-[rgba(218, 220, 224, 0.60)] "
+                className="grid p-[2px] text-[12px] border border-solid border-[rgba(218, 220, 224, 0.60)]"
                 style={{
                   alignContent: "space-between",
                   height: "calc((100vh - 106px)/6)",
@@ -68,55 +105,56 @@ const WeeklyView = ({
               >
                 <h1
                   className={Cn(
-                    currentMonth ? "" : "text-gray-400 ",
+                    currentMonth ? "" : "text-gray-400",
                     today
-                      ? " text-white bg-[#0C41FF] inline-block h-[25px] w-[22px] rounded-full flex items-center justify-center "
+                      ? "text-white bg-[#0C41FF] inline-block h-[25px] w-[22px] rounded-full flex items-center justify-center"
                       : "",
                     selectDate.toDate().toDateString() ===
                       date.toDate().toDateString()
-                      ? "bg-black text-[#fff] "
+                      ? "bg-black text-[#fff]"
                       : "",
-                    " transition-all hover:cursor-pointer hover:bg-black hover:text-white h-[25px] w-[22px] rounded-full flex items-center justify-center m-[2px]"
+                    "transition-all hover:cursor-pointer hover:bg-black hover:text-white h-[25px] w-[22px] rounded-full flex items-center justify-center m-[2px]"
                   )}
                   onClick={() => setSelectDate(date)}
                 >
                   {date.date()}
                 </h1>
                 <div>
-                  {eventsForDate.length > 0 && eventsForDate.length < 4 && (
-                    <div className="flex flex-col text-left mt-2 gap-[1px] leading-[18px]">
-                      {eventsForDate.map((event, eventIndex) => (
-                        <div
-                          key={eventIndex}
-                          className="flex items-center justify-between border border-solid border-[rgba(218, 220, 224, 0.60)] rounded-[3px]  "
-                          style={{
-                            backgroundColor: event.selectedColor,
-                          }}
+                  {initialEventsToShow.map((event, eventIndex) => (
+                    <div
+                      key={eventIndex}
+                      className="flex items-center justify-between border border-solid border-[rgba(218, 220, 224, 0.60)] rounded-[3px]"
+                      style={{
+                        backgroundColor: event.selectedColor,
+                      }}
+                      onClick={() => openDetailsModal(event)}
+                    >
+                      <div>
+                        <span className="text-[8px] leading-[8px]">
+                          {event.selectedEmoji}{" "}
+                        </span>
+                        <span
+                          className={`text-[10px] leading-[10px] font-medium ${
+                            event.eventName.length > 16 ? "truncate" : ""
+                          }`}
                         >
-                          <div>
-                            <span className="text-[8px] leading-[8px]">
-                              {event.selectedEmoji} {""}
-                            </span>
-                            {/* <span className="truncate text-ellipsis overflow-hidden"> */}
-                            {/* <span className="text-[10px] leading-[10px] font-medium">
-                              {event.eventName}
-                            </span> */}
-                            <span
-                              className={`text-[10px] leading-[10px] font-medium ${
-                                event.eventName.length > 16 ? "truncate" : ""
-                              }`}
-                            >
-                              {event.eventName.length > 16
-                                ? event.eventName.substring(0, 13) + "..."
-                                : event.eventName}
-                            </span>
-                          </div>
-                          <div className="text-[10px] leading-[10px] pr-[4px]">
-                            {event.startTime}
-                          </div>
-                        </div>
-                      ))}
+                          {event.eventName.length > 16
+                            ? event.eventName.substring(0, 13) + "..."
+                            : event.eventName}
+                        </span>
+                      </div>
+                      <div className="text-[10px] leading-[10px] pr-[4px]">
+                        {event.endTime}
+                      </div>
                     </div>
+                  ))}
+                  {eventsForDate.length > 2 && (
+                    <button
+                      onClick={() => openAdditionalEventsModal(eventsForDate)}
+                      className="text-blue-500 mt-2"
+                    >
+                      +{eventsForDate.length - 2} more
+                    </button>
                   )}
                 </div>
               </div>
@@ -124,6 +162,20 @@ const WeeklyView = ({
           }
         )}
       </div>
+      {showDetailsModal && selectedEvent && (
+        <EventDetailsModal
+          event={selectedEvent}
+          onClose={closeDetailsModal}
+          onComplete={handleCompleteEvent}
+        />
+      )}
+      {showAdditionalEventsModal && additionalEvents.length > 0 && (
+        <AdditionalEventsModal
+          events={additionalEvents}
+          onClose={closeAdditionalEventsModal}
+          selectDate={selectDate}
+        />
+      )}
     </div>
   );
 };

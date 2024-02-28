@@ -1,17 +1,21 @@
 import Celebrate from "../assets/celebrate.png";
 import { FcCalendar } from "react-icons/fc";
 import dayjs from "dayjs";
+import { useState } from "react";
+import EventDetailsModal from "./EventDetailsModal";
+
 interface UpcomingEventsProps {
   events: Event[]; // Define the type of events array
   selectDate: any;
   currentDate: any;
+  deleteEvent: (eventToDelete: Event) => void;
 }
 interface Event {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;
   selectedDate: string;
-  startTime: string;
+  // startTime: string;
   endTime: string;
   selectedColor: string;
 }
@@ -20,7 +24,27 @@ const UpcomingEvents = ({
   events,
   selectDate,
   currentDate,
+  deleteEvent,
 }: UpcomingEventsProps) => {
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+
+  const openDetailsModal = (event: Event) => {
+    setSelectedEvent(event);
+    setShowDetailsModal(true);
+  };
+
+  const closeDetailsModal = () => {
+    setShowDetailsModal(false);
+  };
+
+  const handleCompleteEvent = () => {
+    if (selectedEvent) {
+      deleteEvent(selectedEvent);
+      closeDetailsModal();
+    }
+  };
+
   return (
     <>
       <div className="  my-[10px] text-[18px] font-medium">Upcoming events</div>
@@ -68,11 +92,14 @@ const UpcomingEvents = ({
                   return eventDate.isSame(selectDate, "day");
                 })
                 .map((event, index) => (
-                  <div key={index}>
+                  <div
+                    key={index}
+                    onClick={() => openDetailsModal(event)} // Open details modal on click
+                    style={{ cursor: "pointer" }} // Change cursor to pointer on hover
+                  >
                     <div className="flex justify-between m-[4px] mr-[8px]">
                       <div>
                         <span className="pr-[2px]">{event.selectedEmoji}</span>
-                        {/* <span>{event.eventName}</span> */}
                         <span
                           className={`text-[10px] leading-[10px] font-medium ${
                             event.eventName.length > 27 ? "truncate" : ""
@@ -84,7 +111,7 @@ const UpcomingEvents = ({
                         </span>
                       </div>
                       <div>
-                        <span>{event.startTime}</span>
+                        <span>{event.endTime}</span>
                       </div>
                     </div>
                   </div>
@@ -97,6 +124,14 @@ const UpcomingEvents = ({
               })} */}
           </div>
         </div>
+      )}
+
+      {showDetailsModal && selectedEvent && (
+        <EventDetailsModal
+          event={selectedEvent}
+          onClose={closeDetailsModal}
+          onComplete={handleCompleteEvent}
+        />
       )}
     </>
   );

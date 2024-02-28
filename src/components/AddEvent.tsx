@@ -6,7 +6,7 @@ type FormFields = {
   eventName: string;
   eventDescription: string;
   selectedDate: string;
-  startTime: string;
+  // startTime: string;
   endTime: string;
   selectedEmoji: string;
   selectedColor: string;
@@ -19,17 +19,19 @@ const AddEvent = ({ onClose, addEvent }: any) => {
     setError,
     formState: { errors, isSubmitting },
   } = useForm<FormFields>();
-  const emojis = ["🔔", "💡", "🧑🏻‍💻", "🏝️", "✈️", "🏃🏻", "💰", "🩷"];
+  const emojis = ["🔔", "💡", "📚", "📊", "🏝️", "✈️", "🏃🏻", "💰", "🩷"];
 
   const colors = [
     "#FFFFFF",
+    // "#FDD",
+    "#FFEBB7",
     "#BDFFDB",
-    "#FDD",
+    "#DCED31",
+    "#90F3FF",
     "#BFC6FF",
     "#A384FF",
-    "#FFEBB7",
-    "#00008B",
-    "#FF0000",
+    "#F4AC45",
+    "#F55536",
   ];
 
   const [selectedColorSame, setSelectedColorSame] = useState(colors[0]);
@@ -53,7 +55,7 @@ const AddEvent = ({ onClose, addEvent }: any) => {
         eventName: data.eventName,
         eventDescription: data.eventDescription,
         selectedDate: data.selectedDate,
-        startTime: data.startTime,
+        // startTime: data.startTime,
         endTime: data.endTime,
         selectedColor: data.selectedColor,
       });
@@ -91,26 +93,29 @@ const AddEvent = ({ onClose, addEvent }: any) => {
           placeholder="Event Description"
           className="mb-4 w-full border border-gray-300 rounded-md p-2"
         />
-        <div className="flex mb-4">
-          <input
-            {...register("selectedDate", {
-              required: "Choose a day",
-            })}
-            type="date"
-            className="mr-16 w-2/5 border border-gray-300 rounded-md p-2"
-          />
+        <div className=" mb-4">
+          <label>Deadline:</label>
+          <div className="flex mt-[4px]">
+            <input
+              {...register("selectedDate", {
+                required: "Choose a day",
+              })}
+              type="date"
+              className="mr-16 w-3/5 border border-gray-300 rounded-md p-2"
+            />
 
-          <input
-            {...register("startTime")}
-            type="time"
-            className="flex-1 border border-gray-300 rounded-md p-2"
-          />
-          <span className="mx-2 my-4"></span>
-          <input
-            {...register("endTime")}
-            type="time"
-            className="flex-1 border border-gray-300 rounded-md p-2"
-          />
+            {/* <input
+              {...register("startTime")}
+              type="time"
+              className="flex-1 border border-gray-300 rounded-md p-2"
+            /> */}
+            <span className="mx-2 my-4"></span>
+            <input
+              {...register("endTime")}
+              type="time"
+              className="flex-1 border border-gray-300 rounded-md p-2"
+            />
+          </div>
         </div>
         {errors.selectedDate && (
           <div className="text-red-500 mb-[8px]">
@@ -137,7 +142,7 @@ const AddEvent = ({ onClose, addEvent }: any) => {
                   className={` text-[18px] size-[28px]  rounded-full cursor-pointer box-content flex items-center justify-center ${
                     selectedEmojiSame === emoji
                       ? "text-[20px] border-[2px] border-[#0C41FF] opacity-100 "
-                      : "opacity-60"
+                      : "opacity-70"
                   }`}
                   //   style={{ boxSizing: "content-addEvent" }} // Adjust font size for emoji
                   onClick={() => handleEmojiChange(emoji)}

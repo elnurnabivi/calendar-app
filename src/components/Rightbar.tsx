@@ -2,6 +2,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useState, useEffect } from "react";
 import RightbarHeader from "./RightbarHeader";
 import WeeklyView from "./WeeklyView";
+// import AdditionalEventsModal from "./AdditionalEventsModal";
 
 interface RightbarProps {
   currentDate: Dayjs;
@@ -9,6 +10,7 @@ interface RightbarProps {
   setSelectDate: any;
   events: Event[];
   addEvent: (event: Event) => void;
+  deleteEvent: (eventName: Event) => void;
 }
 
 interface Event {
@@ -16,7 +18,7 @@ interface Event {
   selectedEmoji: string;
   eventDescription: string;
   selectedDate: string;
-  startTime: string;
+  // startTime: string;
   endTime: string;
   selectedColor: string;
 }
@@ -27,6 +29,7 @@ const Rightbar = ({
   setSelectDate,
   events,
   addEvent,
+  deleteEvent,
 }: RightbarProps) => {
   const [today, setToday] = useState(currentDate);
   useEffect(() => {
@@ -45,7 +48,13 @@ const Rightbar = ({
         selectDate={selectDate}
         setSelectDate={setSelectDate}
         events={events}
+        deleteEvent={deleteEvent}
       />
+      {/* <AdditionalEventsModal
+        events={events}
+        selectDate={selectDate}
+        onClose={() => {}} // You need to define onClose function
+      /> */}
     </div>
   );
 };
