@@ -72,7 +72,16 @@ const UpcomingEvents = ({
                     <div className="flex justify-between m-[4px] mr-[8px]">
                       <div>
                         <span className="pr-[2px]">{event.selectedEmoji}</span>
-                        <span>{event.eventName}</span>
+                        {/* <span>{event.eventName}</span> */}
+                        <span
+                          className={`text-[10px] leading-[10px] font-medium ${
+                            event.eventName.length > 27 ? "truncate" : ""
+                          }`}
+                        >
+                          {event.eventName.length > 27
+                            ? event.eventName.substring(0, 25) + "..."
+                            : event.eventName}
+                        </span>
                       </div>
                       <div>
                         <span>{event.startTime}</span>

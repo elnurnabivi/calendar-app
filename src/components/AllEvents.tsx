@@ -22,12 +22,21 @@ const AllEvents = ({ events }: AllEventsProps) => {
       <div>
         {events.map((event, index) => (
           <div key={index}>
-            <div className="flex justify-between m-[4px] mr-[8px]">
+            <div className="flex justify-between m-[4px] ">
               <div>
                 <span className="pr-[2px] ">{event.selectedEmoji}</span>
                 {/* <span className={`text-${event.selectedColor}`}> */}
                 {/* <span style={{ color: event.selectedColor }}> */}
-                <span>{event.eventName}</span>
+                {/* <span className="font-medium">{event.eventName}</span> */}
+                <span
+                  className={`text-[10px] leading-[10px] font-medium ${
+                    event.eventName.length > 23 ? "truncate" : ""
+                  }`}
+                >
+                  {event.eventName.length > 23
+                    ? event.eventName.substring(0, 20) + "..."
+                    : event.eventName}
+                </span>
               </div>
               <div>
                 <span>{event.selectedDate}</span>

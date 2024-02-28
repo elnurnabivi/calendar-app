@@ -33,7 +33,6 @@ const WeeklyView = ({
     "Friday",
     "Saturday",
   ];
-  // const numColumns = daysOfWeek.length;
   return (
     <div className="">
       <div className="flex grid grid-cols-7 border border-solid border-[rgba(218, 220, 224, 0.60)] ">
@@ -54,20 +53,18 @@ const WeeklyView = ({
       >
         {generateDate(today.month(), today.year()).map(
           ({ date, currentMonth, today }, index) => {
-            // const eventsForDate = events.find((event) =>
-            //   dayjs(event.selectedDate).isSame(date, "day")
-            // );
-
             const eventsForDate = events.filter((event) =>
               dayjs(event.selectedDate).isSame(date, "day")
             );
-            // const containerWidth = `calc(100% / 7)`;
 
             return (
               <div
                 key={index}
-                className=" grid  p-[4px] text-[12px] border border-solid border-[rgba(218, 220, 224, 0.60)] "
-                style={{ alignContent: "space-between" }}
+                className=" grid  p-[2px] text-[12px] border border-solid border-[rgba(218, 220, 224, 0.60)] "
+                style={{
+                  alignContent: "space-between",
+                  height: "calc((100vh - 106px)/6)",
+                }}
               >
                 <h1
                   className={Cn(
@@ -79,45 +76,44 @@ const WeeklyView = ({
                       date.toDate().toDateString()
                       ? "bg-black text-[#fff] "
                       : "",
-                    " transition-all hover:cursor-pointer hover:bg-black hover:text-white h-[25px] w-[22px] rounded-full flex items-center justify-center "
+                    " transition-all hover:cursor-pointer hover:bg-black hover:text-white h-[25px] w-[22px] rounded-full flex items-center justify-center m-[2px]"
                   )}
                   onClick={() => setSelectDate(date)}
                 >
                   {date.date()}
-                  {/* {eventForDate ? eventForDate : date.date()} */}
                 </h1>
-                {/* <div style={{ width: containerWidth }}> */}
                 <div>
-                  {eventsForDate.length > 0 && (
-                    <div className="flex flex-col text-left mt-2 gap-1">
-                      {/* Loop through each event for the date */}
+                  {eventsForDate.length > 0 && eventsForDate.length < 4 && (
+                    <div className="flex flex-col text-left mt-2 gap-[1px] leading-[18px]">
                       {eventsForDate.map((event, eventIndex) => (
                         <div
                           key={eventIndex}
-                          className="pr-[36px] py-[4px]"
-                          // style={{ color: event.selectedColor }}
+                          className="flex items-center justify-between border border-solid border-[rgba(218, 220, 224, 0.60)] rounded-[3px]  "
                           style={{
                             backgroundColor: event.selectedColor,
-                            // width: "100%", // Ensure full width
-                            // boxSizing: "border-box",
                           }}
-                          // style={{
-                          //   backgroundColor: event.selectedColor,
-                          //   // width: "200%",
-                          //   padding: "2px 4px",
-                          //   width: "100%", // Ensures full width
-                          //   maxWidth: "100%",
-                          //   boxSizing: "border-box",
-                          //   whiteSpace: "nowrap", // Prevents wrapping
-                          //   textOverflow: "ellipsis",
-                          //   // flex: "1",
-                          // }}
                         >
-                          <span className="text-[10px] font-bold">
-                            {event.selectedEmoji} {""}
-                          </span>
-                          {/* <span className="truncate text-ellipsis overflow-hidden"> */}
-                          <span>{event.eventName}</span>
+                          <div>
+                            <span className="text-[8px] leading-[8px]">
+                              {event.selectedEmoji} {""}
+                            </span>
+                            {/* <span className="truncate text-ellipsis overflow-hidden"> */}
+                            {/* <span className="text-[10px] leading-[10px] font-medium">
+                              {event.eventName}
+                            </span> */}
+                            <span
+                              className={`text-[10px] leading-[10px] font-medium ${
+                                event.eventName.length > 16 ? "truncate" : ""
+                              }`}
+                            >
+                              {event.eventName.length > 16
+                                ? event.eventName.substring(0, 13) + "..."
+                                : event.eventName}
+                            </span>
+                          </div>
+                          <div className="text-[10px] leading-[10px] pr-[4px]">
+                            {event.startTime}
+                          </div>
                         </div>
                       ))}
                     </div>

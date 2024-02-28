@@ -29,7 +29,7 @@ const EventsForTomorrow = ({ events }: EventsForTomorrowProps) => {
           const eventDate = dayjs(event.selectedDate, "YYYY-MM-DD");
           return eventDate.isSame(tomorrow, "day");
         }).length === 0 ? (
-          <div>No events for tomorrow</div>
+          <div className="m-[4px]">No events for tomorrow</div>
         ) : (
           events
             .filter((event) => {
@@ -38,16 +38,24 @@ const EventsForTomorrow = ({ events }: EventsForTomorrowProps) => {
             })
             .map((event, index) => (
               <div key={index}>
-                <div className="flex justify-between m-[4px] mr-[8px]">
+                <div className="flex justify-between m-[4px]">
                   <div>
                     <span className="pr-[2px] ">{event.selectedEmoji}</span>
-                    <span className="">{event.eventName}</span>
+                    {/* <span className="font-medium">{event.eventName}</span> */}
+                    <span
+                      className={`text-[10px] leading-[10px] font-medium ${
+                        event.eventName.length > 27 ? "truncate" : ""
+                      }`}
+                    >
+                      {event.eventName.length > 27
+                        ? event.eventName.substring(0, 25) + "..."
+                        : event.eventName}
+                    </span>
                   </div>
                   <div>
                     <span>{event.startTime}</span>
                   </div>
                 </div>
-                <div></div>
               </div>
             ))
         )}
