@@ -66,7 +66,6 @@ const AllEvents = ({ events, deleteEvent }: AllEventsProps) => {
                 <span>{event.selectedDate}</span>
               </div>
             </div>
-            <div></div>
           </div>
         ))}
       </div>
