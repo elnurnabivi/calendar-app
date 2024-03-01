@@ -52,7 +52,7 @@ const RightbarHeader = ({ today, setToday, addEvent }: RightbarHeaderProps) => {
         </div>
 
         <button
-          className="bg-[#0C41FF] flex items-center h-[35px] p-[8px] gap-[4px] rounded-[3px] mr-[16px]"
+          className="bg-[#0C41FF] hover:bg-[#0A37E0] flex items-center h-[35px] p-[8px] gap-[4px] rounded-[3px] mr-[16px]"
           onClick={handleAddEvent}
         >
           <span className="text-[#fff] text-[12px]">Add event</span>

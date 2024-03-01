@@ -111,7 +111,7 @@ const WeeklyView: React.FC<WeeklyViewProps> = ({
                       : "",
                     selectDate.toDate().toDateString() ===
                       date.toDate().toDateString()
-                      ? "bg-black text-[#fff]"
+                      ? "text-white bg-black "
                       : "",
                     "transition-all hover:cursor-pointer hover:bg-black hover:text-white h-[25px] w-[22px] rounded-full flex items-center justify-center m-[2px]"
                   )}

@@ -74,7 +74,7 @@ const AddEvent = ({ onClose, addEvent }: any) => {
       onSubmit={handleSubmit(onSubmit)}
       className="modal fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-75 text-[12px]"
     >
-      <div className="modal-content bg-white w-full max-w-[500px]  max-h-[400px] rounded-md p-8 relative">
+      <div className="modal-content bg-white w-full max-w-[500px]  max-h-[500px] rounded-md p-8 relative">
         <input
           {...register("eventName", {
             required: "Title is required",
@@ -82,6 +82,7 @@ const AddEvent = ({ onClose, addEvent }: any) => {
           type="text"
           placeholder="Add title"
           className="mb-4 w-full border border-gray-300 rounded-md p-2 font-medium text-[16px]"
+          maxLength={200}
         />
         {errors.eventName && (
           <div className="text-red-500 mb-[8px]">
@@ -92,6 +93,7 @@ const AddEvent = ({ onClose, addEvent }: any) => {
           {...register("eventDescription")}
           placeholder="Event Description"
           className="mb-4 w-full border border-gray-300 rounded-md p-2"
+          maxLength={900}
         />
         <div className=" mb-4">
           <label>Deadline:</label>
@@ -184,14 +186,17 @@ const AddEvent = ({ onClose, addEvent }: any) => {
         </div>
 
         <div className="flex justify-end mt-4">
-          <button onClick={onClose} className="mr-4 text-gray-500">
+          <button
+            onClick={onClose}
+            className=" mr-4 text-gray-700 border content-box border-[#fff] hover:border-[#ADBFF5] py-[3px] px-[7px] text-semibold rounded-[3px]"
+          >
             Cancel
           </button>
           <button
             disabled={isSubmitting}
             type="submit"
             // onClick={handleSubmit}
-            className="bg-[#0C41FF] text-white flex items-center h-[35px] p-[8px] gap-[4px] rounded-[3px]"
+            className="bg-[#0C41FF] text-white hover:bg-[#0A37E0] flex items-center h-[35px] p-[8px] gap-[4px] rounded-[3px]"
           >
             {isSubmitting ? (
               "Adding..."
