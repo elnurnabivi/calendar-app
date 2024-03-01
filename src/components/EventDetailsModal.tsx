@@ -1,7 +1,6 @@
 import { FaCheck } from "react-icons/fa6";
 import { GoClock } from "react-icons/go";
 import { CgDetailsMore } from "react-icons/cg";
-
 import { IoCalendarOutline } from "react-icons/io5";
 
 interface EventDetailsModalProps {
