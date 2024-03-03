@@ -1,4 +1,3 @@
-import React from "react";
 import dayjs from "dayjs";
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";

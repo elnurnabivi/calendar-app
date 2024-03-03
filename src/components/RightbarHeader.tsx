@@ -1,7 +1,7 @@
 import { FaArrowDown, FaArrowUp, FaSearch } from "react-icons/fa";
 import { HiPlusCircle } from "react-icons/hi";
 import { useState } from "react";
-import { generateDate, monthsOfYear } from "./CalendarBox";
+import { monthsOfYear } from "./CalendarBox";
 import AddEvent from "./AddEvent";
 
 interface RightbarHeaderProps {

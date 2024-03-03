@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { generateDate, monthsOfYear } from "./CalendarBox";
 import { useState, useEffect } from "react";
 import CalendarHeader from "./CalendarHeader";
