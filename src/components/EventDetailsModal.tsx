@@ -7,6 +7,8 @@ interface EventDetailsModalProps {
   event: Event;
   onClose: () => void;
   onComplete: () => void;
+  // onComplete: (event: Event) => void;
+  // deleteEvent: (eventName: Event) => void;
 }
 
 interface Event {
@@ -22,7 +24,12 @@ const EventDetailsModal = ({
   event,
   onClose,
   onComplete,
-}: EventDetailsModalProps) => {
+}: // deleteEvent,
+EventDetailsModalProps) => {
+  // const handleComplete = () => {
+  //   onComplete(); // Call onComplete with the event
+  //   onClose();
+  // };
   return (
     <div className="modal fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-75 text-[12px]">
       <div className="modal-content bg-white  w-full max-w-[500px]  max-h-[600px] rounded-md p-8 relative">
@@ -61,7 +68,12 @@ const EventDetailsModal = ({
 
         <div className="flex gap-[8px] items-center mt-[16px]">
           <button
-            onClick={onComplete}
+            // onClick={onComplete}
+            onClick={() => {
+              onComplete();
+              // handleComplete();
+              onClose();
+            }}
             className="bg-[#F0F4FF] hover:bg-[#E7E9FC] border hover:border-[#ADBFF5] text-[#385BCC] text-[12px] text-semibold flex items-center justify-center  py-[3px] px-[7px] gap-[4px] rounded-[3px]"
           >
             <FaCheck />

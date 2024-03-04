@@ -10,7 +10,10 @@ interface RightbarProps {
   setSelectDate: any;
   events: Event[];
   addEvent: (event: Event) => void;
-  deleteEvent: (eventName: Event) => void;
+  // deleteEvent: (eventName: Event) => void;
+  deleteEvent: (eventToDelete: Event) => void;
+
+  // deleteEvent: (event: Event) => void;
 }
 
 interface Event {

@@ -6,6 +6,10 @@ interface AdditionalEventsModalProps {
   events: Event[];
   onClose: () => void;
   selectDate: any;
+  onComplete: () => void;
+  selectedEvent: Event | null;
+  setSelectedEvent: (event: Event | null) => void;
+  // deleteEvent: (event: Event) => void;
 }
 
 interface Event {
@@ -21,8 +25,12 @@ const AdditionalEventsModal: React.FC<AdditionalEventsModalProps> = ({
   events,
   onClose,
   selectDate,
+  onComplete,
+  selectedEvent,
+  setSelectedEvent,
+  // deleteEvent,
 }) => {
-  const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
+  // const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
 
   const openEventDetailsModal = (event: Event) => {
     setSelectedEvent(event);
@@ -31,6 +39,10 @@ const AdditionalEventsModal: React.FC<AdditionalEventsModalProps> = ({
   const closeEventDetailsModal = () => {
     setSelectedEvent(null);
   };
+
+  // const handleDeleteEvent = (event: Event) => {
+  //   deleteEvent(event); // Call deleteEvent function to delete the event
+  // };
 
   return (
     <div className="fixed inset-0 overflow-y-auto z-50 flex justify-center items-center">
@@ -86,6 +98,8 @@ const AdditionalEventsModal: React.FC<AdditionalEventsModalProps> = ({
               <div className="text-xs text-gray-500">
                 {dayjs(event.selectedDate).format("YYYY-MM-DD")}
               </div>
+              {/* <button onClick={() => handleDeleteEvent(event)}>Delete</button>{" "} */}
+              {/* Add delete button */}
             </div>
           ))}
         </div>
@@ -94,7 +108,8 @@ const AdditionalEventsModal: React.FC<AdditionalEventsModalProps> = ({
         <EventDetailsModal
           event={selectedEvent}
           onClose={closeEventDetailsModal}
-          onComplete={() => {}}
+          onComplete={onComplete}
+          // deleteEvent={deleteEvent}
         />
       )}
     </div>

@@ -13,7 +13,8 @@ interface SidebarProps {
   selectDate: any;
   setSelectDate: any;
   events: Event[];
-  deleteEvent: (eventName: Event) => void;
+  // deleteEvent: (eventName: Event) => void;
+  deleteEvent: (eventToDelete: Event) => void;
 
   // addEvent: (event: Event) => void;
 }

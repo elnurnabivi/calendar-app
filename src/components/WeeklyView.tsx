@@ -10,7 +10,8 @@ interface WeeklyViewProps {
   selectDate: any;
   setSelectDate: any;
   events: Event[];
-  deleteEvent: (eventName: Event) => void;
+  // deleteEvent: (eventName: Event) => void;
+  deleteEvent: (eventToDelete: Event) => void;
 }
 
 interface Event {
@@ -43,7 +44,7 @@ const WeeklyView: React.FC<WeeklyViewProps> = ({
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [showAdditionalEventsModal, setShowAdditionalEventsModal] =
     useState(false);
-  const [additionalEvents, setAdditionalEvents] = useState<Event[]>([]);
+  // const [additionalEvents, setAdditionalEvents] = useState<Event[]>([]);
 
   const openDetailsModal = (event: Event) => {
     setSelectedEvent(event);
@@ -51,8 +52,8 @@ const WeeklyView: React.FC<WeeklyViewProps> = ({
   };
 
   const openAdditionalEventsModal = (eventsForDate: Event[]) => {
-    setAdditionalEvents(eventsForDate);
-    setShowAdditionalEventsModal(true);
+    // setAdditionalEvents(eventsForDate);
+    eventsForDate.length > 0 && setShowAdditionalEventsModal(true);
   };
 
   const closeDetailsModal = () => {
@@ -167,13 +168,28 @@ const WeeklyView: React.FC<WeeklyViewProps> = ({
           event={selectedEvent}
           onClose={closeDetailsModal}
           onComplete={handleCompleteEvent}
+          // deleteEvent={deleteEvent}
+
+          // onComplete={() => {
+          //   if (showAdditionalEventsModal) {
+          //     // Perform optional logic when showAdditionalEventsModal is true
+          //   } else {
+          //     handleCompleteEvent();
+          //   }
+          // }}
         />
       )}
-      {showAdditionalEventsModal && additionalEvents.length > 0 && (
+      {showAdditionalEventsModal && (
+        // additionalEvents.length > 0 &&
         <AdditionalEventsModal
-          events={additionalEvents}
+          // events={additionalEvents}
+          events={events}
           onClose={closeAdditionalEventsModal}
           selectDate={selectDate}
+          onComplete={handleCompleteEvent}
+          selectedEvent={selectedEvent}
+          setSelectedEvent={setSelectedEvent}
+          // deleteEvent={deleteEvent}
         />
       )}
     </div>
