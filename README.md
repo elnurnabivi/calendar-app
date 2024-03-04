@@ -2,7 +2,7 @@
 
 ## Live
 
-You can access the live version of Flexen at [...](...).
+You can access the live version of Flexen at [https://elnurnabivi.github.io/flexen-app/](https://elnurnabivi.github.io/flexen-app/).
 
 Flexen is a large-scale task management web app and it offers a user-friendly experience and innovative approaches to handling tasks.
 
