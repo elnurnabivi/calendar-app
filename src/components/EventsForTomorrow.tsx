@@ -4,10 +4,10 @@ import { useState } from "react";
 import EventDetailsModal from "./EventDetailsModal";
 
 interface EventsForTomorrowProps {
-  events: Event[];
-  deleteEvent: (eventToDelete: Event) => void;
+  events: CustomEvent[];
+  deleteEvent: (eventToDelete: CustomEvent) => void;
 }
-interface Event {
+interface CustomEvent {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;
@@ -19,9 +19,9 @@ interface Event {
 const EventsForTomorrow = ({ events, deleteEvent }: EventsForTomorrowProps) => {
   const tomorrow = dayjs().add(1, "day").toDate().toDateString();
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<CustomEvent | null>(null);
 
-  const openDetailsModal = (event: Event) => {
+  const openDetailsModal = (event: CustomEvent) => {
     setSelectedEvent(event);
     setShowDetailsModal(true);
   };

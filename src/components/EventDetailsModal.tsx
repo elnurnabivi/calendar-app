@@ -4,14 +4,14 @@ import { CgDetailsMore } from "react-icons/cg";
 import { IoCalendarOutline } from "react-icons/io5";
 
 interface EventDetailsModalProps {
-  event: Event;
+  event: CustomEvent;
   onClose: () => void;
   onComplete: () => void;
   // onComplete: (event: Event) => void;
   // deleteEvent: (eventName: Event) => void;
 }
 
-interface Event {
+interface CustomEvent {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;

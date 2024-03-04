@@ -3,16 +3,16 @@ import dayjs from "dayjs";
 import EventDetailsModal from "./EventDetailsModal";
 
 interface AdditionalEventsModalProps {
-  events: Event[];
+  events: CustomEvent[];
   onClose: () => void;
   selectDate: any;
   onComplete: () => void;
-  selectedEvent: Event | null;
-  setSelectedEvent: (event: Event | null) => void;
+  selectedEvent: CustomEvent | null;
+  setSelectedEvent: (event: CustomEvent | null) => void;
   // deleteEvent: (event: Event) => void;
 }
 
-interface Event {
+interface CustomEvent {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;
@@ -32,7 +32,7 @@ const AdditionalEventsModal: React.FC<AdditionalEventsModalProps> = ({
 }) => {
   // const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
 
-  const openEventDetailsModal = (event: Event) => {
+  const openEventDetailsModal = (event: CustomEvent) => {
     setSelectedEvent(event);
   };
 

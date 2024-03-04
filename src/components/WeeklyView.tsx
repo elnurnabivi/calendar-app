@@ -9,12 +9,12 @@ interface WeeklyViewProps {
   today: any;
   selectDate: any;
   setSelectDate: any;
-  events: Event[];
+  events: CustomEvent[];
   // deleteEvent: (eventName: Event) => void;
-  deleteEvent: (eventToDelete: Event) => void;
+  deleteEvent: (eventToDelete: CustomEvent) => void;
 }
 
-interface Event {
+interface CustomEvent {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;
@@ -41,17 +41,17 @@ const WeeklyView: React.FC<WeeklyViewProps> = ({
   ];
 
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<CustomEvent | null>(null);
   const [showAdditionalEventsModal, setShowAdditionalEventsModal] =
     useState(false);
-  // const [additionalEvents, setAdditionalEvents] = useState<Event[]>([]);
+  // const [additionalEvents, setAdditionalEvents] = useState<CustomEvent[]>([]);
 
-  const openDetailsModal = (event: Event) => {
+  const openDetailsModal = (event: CustomEvent) => {
     setSelectedEvent(event);
     setShowDetailsModal(true);
   };
 
-  const openAdditionalEventsModal = (eventsForDate: Event[]) => {
+  const openAdditionalEventsModal = (eventsForDate: CustomEvent[]) => {
     // setAdditionalEvents(eventsForDate);
     eventsForDate.length > 0 && setShowAdditionalEventsModal(true);
   };

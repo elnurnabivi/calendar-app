@@ -8,15 +8,15 @@ interface RightbarProps {
   currentDate: Dayjs;
   selectDate: any;
   setSelectDate: any;
-  events: Event[];
-  addEvent: (event: Event) => void;
+  events: CustomEvent[];
+  addEvent: (event: CustomEvent) => void;
   // deleteEvent: (eventName: Event) => void;
-  deleteEvent: (eventToDelete: Event) => void;
+  deleteEvent: (eventToDelete: CustomEvent) => void;
 
   // deleteEvent: (event: Event) => void;
 }
 
-interface Event {
+interface CustomEvent {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;

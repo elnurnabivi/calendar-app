@@ -5,12 +5,12 @@ import { monthsOfYear } from "./CalendarBox";
 import AddEvent from "./AddEvent";
 
 interface RightbarHeaderProps {
-  addEvent: (event: Event) => void;
+  addEvent: (event: CustomEvent) => void;
   today: any;
   setToday: any;
 }
 
-interface Event {
+interface CustomEvent {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;

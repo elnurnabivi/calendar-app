@@ -2,16 +2,18 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Rightbar from "./components/Rightbar";
+import { CustomEvent } from "./types";
 
 function App() {
   const currentDate = dayjs();
   const [selectDate, setSelectDate] = useState(currentDate);
-  const [events, setEvents] = useState<Event[]>([]);
-  const addEvent = (event: Event) => {
+  const [events, setEvents] = useState<CustomEvent[]>([]);
+
+  const addEvent = (event: CustomEvent) => {
     setEvents([...events, event]);
   };
 
-  const deleteEvent = (eventToDelete: Event) => {
+  const deleteEvent = (eventToDelete: CustomEvent) => {
     setEvents(events.filter((event) => event !== eventToDelete));
   };
 

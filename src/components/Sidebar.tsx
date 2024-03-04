@@ -12,14 +12,14 @@ interface SidebarProps {
   currentDate: Dayjs;
   selectDate: any;
   setSelectDate: any;
-  events: Event[];
-  // deleteEvent: (eventName: Event) => void;
-  deleteEvent: (eventToDelete: Event) => void;
+  events: CustomEvent[];
+  // deleteEvent: (eventName: CustomEvent) => void;
+  deleteEvent: (eventToDelete: CustomEvent) => void;
 
   // addEvent: (event: Event) => void;
 }
 
-interface Event {
+interface CustomEvent {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;

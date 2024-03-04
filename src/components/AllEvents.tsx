@@ -3,11 +3,11 @@ import EventDetailsModal from "./EventDetailsModal"; // Importing EventDetailsMo
 import { useState } from "react";
 
 interface AllEventsProps {
-  events: Event[];
-  deleteEvent: (eventToDelete: Event) => void;
+  events: CustomEvent[];
+  deleteEvent: (eventToDelete: CustomEvent) => void;
 }
 
-interface Event {
+interface CustomEvent {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;
@@ -18,9 +18,9 @@ interface Event {
 
 const AllEvents = ({ events, deleteEvent }: AllEventsProps) => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<CustomEvent | null>(null);
 
-  const openDetailsModal = (event: Event) => {
+  const openDetailsModal = (event: CustomEvent) => {
     setSelectedEvent(event);
     setShowDetailsModal(true);
   };

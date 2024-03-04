@@ -5,12 +5,12 @@ import { useState } from "react";
 import EventDetailsModal from "./EventDetailsModal";
 
 interface UpcomingEventsProps {
-  events: Event[]; // Define the type of events array
+  events: CustomEvent[];
   selectDate: any;
   currentDate: any;
-  deleteEvent: (eventToDelete: Event) => void;
+  deleteEvent: (eventToDelete: CustomEvent) => void;
 }
-interface Event {
+interface CustomEvent {
   eventName: string;
   selectedEmoji: string;
   eventDescription: string;
@@ -27,9 +27,9 @@ const UpcomingEvents = ({
   deleteEvent,
 }: UpcomingEventsProps) => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<CustomEvent | null>(null);
 
-  const openDetailsModal = (event: Event) => {
+  const openDetailsModal = (event: CustomEvent) => {
     setSelectedEvent(event);
     setShowDetailsModal(true);
   };
